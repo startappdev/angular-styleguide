@@ -300,6 +300,9 @@ Special thanks to Igor Minar, lead on the Angular team, for reviewing, contribut
 ## Components
 
   ```javascript
+import {dateVM} from "./advertiser-info.client.model";
+import {UserManagementService} from "../../services/user-management.client.service";
+import {AdvertiserInfoService} from "./advertiser-info.client.service";
 const template = require('!!ngtemplate?module=userManagement&relativeTo=frontEnd/!html!./advertiser-info.client.comp.html');
 
 export class advertiserInfoComponent implements ng.IComponentOptions {

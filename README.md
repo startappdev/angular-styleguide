@@ -6,7 +6,6 @@ Special thanks to Igor Minar, lead on the Angular team, for reviewing, contribut
 ## Table of Contents
 
   1. [Single Responsibility](#single-responsibility)
-  1. [IIFE](#iife)
   1. [Modules](#modules)
   1. [Controllers](#controllers)
   1. [Components - TypeScript](#components)
@@ -112,71 +111,6 @@ Special thanks to Igor Minar, lead on the Angular team, for reviewing, contribut
   *Why?*: Small functions are easier to maintain.
 
   *Why?*: Small functions help avoid hidden bugs that come with large functions that share variables with external scope, create unwanted closures, or unwanted coupling with dependencies.
-
-**[Back to top](#table-of-contents)**
-
-## IIFE
-### JavaScript Scopes
-###### [Style [Y010](#style-y010)]
-
-  - Wrap Angular components in an Immediately Invoked Function Expression (IIFE).
-
-  *Why?*: An IIFE removes variables from the global scope. This helps prevent variables and function declarations from living longer than expected in the global scope, which also helps avoid variable collisions.
-
-  *Why?*: When your code is minified and bundled into a single file for deployment to a production server, you could have collisions of variables and many global variables. An IIFE protects you against both of these by providing variable scope for each file.
-
-  ```javascript
-  /* avoid */
-  // logger.js
-  angular
-      .module('app')
-      .factory('logger', logger);
-
-  // logger function is added as a global variable
-  function logger() { }
-
-  // storage.js
-  angular
-      .module('app')
-      .factory('storage', storage);
-
-  // storage function is added as a global variable
-  function storage() { }
-  ```
-
-  ```javascript
-  /**
-   * recommended
-   *
-   * no globals are left behind
-   */
-
-  // logger.js
-  (function() {
-      'use strict';
-
-      angular
-          .module('app')
-          .factory('logger', logger);
-
-      function logger() { }
-  })();
-
-  // storage.js
-  (function() {
-      'use strict';
-
-      angular
-          .module('app')
-          .factory('storage', storage);
-
-      function storage() { }
-  })();
-  ```
-
-  - Note: For brevity only, the rest of the examples in this guide may omit the IIFE syntax.
-
-  - Note: IIFE's prevent test code from reaching private members like regular expressions or helper functions which are often good to unit test directly on their own. However you can test these through accessible members or by exposing them through their own component. For example placing helper functions, regular expressions or constants in their own factory or constant.
 
 **[Back to top](#table-of-contents)**
 
@@ -299,10 +233,10 @@ Special thanks to Igor Minar, lead on the Angular team, for reviewing, contribut
 
 ## Components
 
+### Example with TypeScript
+
   ```javascript
-import {dateVM} from "./advertiser-info.client.model";
 import {UserManagementService} from "../../services/user-management.client.service";
-import {AdvertiserInfoService} from "./advertiser-info.client.service";
 const template = require('!!ngtemplate?module=userManagement&relativeTo=frontEnd/!html!./advertiser-info.client.comp.html');
 
 export class advertiserInfoComponent implements ng.IComponentOptions {
@@ -316,10 +250,10 @@ export class advertiserInfoComponent implements ng.IComponentOptions {
 
 class advInfoController implements ng.IController {
     private managers: Array<any>;
-    private dateVM: dateVM;
+    private selectedUser: any; // will be: private selectedUser: User;
 
-    public static $inject: Array<string> = ["userManagementService", "advertiserInfoService", "GenericModal"];
-    constructor(private userManagementService: UserManagementService, private advertiserInfoService: AdvertiserInfoService, private GenericModal) {
+    constructor(private userManagementService: UserManagementService) {
+        "ngInject";
     }
 
     $onInit = () => {
@@ -329,13 +263,6 @@ class advInfoController implements ng.IController {
     saveAdvertiser() {
         this.userManagementService.saveUser(this.selectedUser);
     }
-
-    onIODateChange() {
-        if (this.dateVM.date) {
-            this.selectedUser.advertiser.ioEndDate = new Date(this.dateVM.date);
-        }
-    }
-
 }
 
 angular

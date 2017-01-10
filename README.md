@@ -35,6 +35,29 @@ Special thanks to Igor Minar, lead on the Angular team, for reviewing, contribut
   1. [Filters](#filters)
   1. [Angular Docs](#angular-docs)
 
+## Folder Structure
+
+.
++-- _config.yml
++-- your-module-folder
+|   +-- components
+|   +-- on-simplicity-in-technology.markdown
++-- _includes
+|   +-- footer.html
+|   +-- header.html
++-- _layouts
+|   +-- default.html
+|   +-- post.html
++-- _posts
+|   +-- 2007-10-29-why-every-programmer-should-play-nethack.textile
+|   +-- 2009-04-26-barcamp-boston-4-roundup.textile
++-- _data
+|   +-- members.yml
++-- _site
++-- index.html
+
+**[Back to top](#table-of-contents)**
+
 ## Single Responsibility
 
 ### Rule of 1
@@ -1340,9 +1363,15 @@ angular.module('sfs-activity-monitor.directives')
         .module('app')
         .controller('DashboardController', DashboardController);
 
-    DashboardController.$inject = ['$location', '$routeParams', 'common', 'dataService'];
-
+    /*@ngInject*/
     function DashboardController($location, $routeParams, common, dataService) {
+    }
+    ```
+
+    ```javascript
+    /* recommended */
+    constructor(private optimizerSettings: any, private $http: ng.IHttpService, private userAuth: any) {
+        "ngInject";
     }
     ```
 
@@ -1948,8 +1977,6 @@ angular.module('sfs-activity-monitor.directives')
 ###### [Style [Y165](#style-y165)]
 
   - The application root module depends on the app specific feature modules and any shared or reusable modules.
-
-    ![Modularity and Dependencies](https://raw.githubusercontent.com/startappdev/angular-styleguide/master/a1/assets/modularity-1.png)
 
     *Why?*: The main app module contains a quickly identifiable manifest of the application's features.
 

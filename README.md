@@ -9,6 +9,7 @@ Special thanks to Igor Minar, lead on the Angular team, for reviewing, contribut
   1. [IIFE](#iife)
   1. [Modules](#modules)
   1. [Controllers](#controllers)
+  1. [Components - TypeScript](#components)
   1. [Services](#services)
   1. [Factories](#factories)
   1. [Data Services](#data-services)
@@ -292,6 +293,51 @@ Special thanks to Igor Minar, lead on the Angular team, for reviewing, contribut
       .factory('logger', logger);
 
   function logger() { }
+  ```
+
+**[Back to top](#table-of-contents)**
+
+## Components
+
+  ```javascript
+const template = require('!!ngtemplate?module=userManagement&relativeTo=frontEnd/!html!./advertiser-info.client.comp.html');
+
+export class advertiserInfoComponent implements ng.IComponentOptions {
+    public templateUrl: string = template;
+    public controller: any = advInfoController;
+    public bindings: any = {
+        managers: '<',
+        selectedUser: '<'
+    };
+}
+
+class advInfoController implements ng.IController {
+    private managers: Array<any>;
+    private dateVM: dateVM;
+
+    public static $inject: Array<string> = ["userManagementService", "advertiserInfoService", "GenericModal"];
+    constructor(private userManagementService: UserManagementService, private advertiserInfoService: AdvertiserInfoService, private GenericModal) {
+    }
+
+    $onInit = () => {
+        //init code here
+    };
+
+    saveAdvertiser() {
+        this.userManagementService.saveUser(this.selectedUser);
+    }
+
+    onIODateChange() {
+        if (this.dateVM.date) {
+            this.selectedUser.advertiser.ioEndDate = new Date(this.dateVM.date);
+        }
+    }
+
+}
+
+angular
+    .module("userManagement")
+    .component("advertiserInfo", new advertiserInfoComponent());
   ```
 
 **[Back to top](#table-of-contents)**

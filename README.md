@@ -5,6 +5,7 @@ Special thanks to Igor Minar, lead on the Angular team, for reviewing, contribut
 
 ## Table of Contents
 
+  1. [Folder Structure](#folder-structure)
   1. [Single Responsibility](#single-responsibility)
   1. [Modules](#modules)
   1. [Components - TypeScript](#components)

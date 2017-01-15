@@ -63,10 +63,16 @@ portal
         │    │         └  component-name2.less
         │    │───config
         │    │   └   module-name.client.config.ts
+        │    │───directives (optional)
+        │    │   │  directive-name.client.directive.ts
+        │    │   └  ...
+        │    │───less (optional)
         │    │───models (optional)
+        │    │   │  model-name.client.model.ts
         │    │   └  ...
         │    │───routes
         │    │   └   module-name.client.routes.ts
+        │    └───services (optional)
         │    └───tests
         │        └   ...
         ...

@@ -46,23 +46,28 @@ portal
     │   │   admin.client.module.es6
     │   │   ...
     └───adv
+        │   adv.client.module.es6
+        │   ...
         └───module-name
         │    │───assets
         │    │───components
-        │    │     └───component-name
+        │    │     │───component-name
         │    │     │   │  component-name.client.comp.ts
+        │    │     │   │  component-name.client.models.ts (optional)
         │    │     │   │  component-name.client.service.ts
-        │    │     │   │  component-name.less
+        │    │     │   └  component-name.less
         │    │     └───component-name2
         │    │         │  component-name2.client.comp.ts
         │    │         │  component-name2.client.service.ts
-        │    │         │  component-name2.less
+        │    │         └  component-name2.less
         │    │───config
-        │    │   │   module-name.client.config.ts
+        │    │   └   module-name.client.config.ts
+        │    │───models (optional)
+        │    │   └  ...
         │    │───routes
-        │    │   │   module-name.client.routes.ts
+        │    │   └   module-name.client.routes.ts
         │    └───tests
-        │        │   ...
+        │        └   ...
         └─...
 ```
 

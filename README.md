@@ -38,22 +38,32 @@ Special thanks to Igor Minar, lead on the Angular team, for reviewing, contribut
 ## Folder Structure
 
 ```
-project
-│   README.md
-│   file001.txt
+portal
 │
-└───folder1
-│   │   file011.txt
-│   │   file012.txt
-│   │
-│   └───subfolder1
-│       │   file111.txt
-│       │   file112.txt
-│       │   ...
-│
-└───folder2
-    │   file021.txt
-    │   file022.txt
+└───frontEnd
+    │
+    │───admin
+    │   │   admin.client.module.es6
+    │   │   ...
+    └───adv
+        └───module-name
+        │    │───assets
+        │    │───components
+        │    │     └───component-name
+        │    │     │   │  component-name.client.comp.ts
+        │    │     │   │  component-name.client.service.ts
+        │    │     │   │  component-name.less
+        │    │     └───component-name2
+        │    │         │  component-name2.client.comp.ts
+        │    │         │  component-name2.client.service.ts
+        │    │         │  component-name2.less
+        │    │───config
+        │    │   │   module-name.client.config.ts
+        │    │───routes
+        │    │   │   module-name.client.routes.ts
+        │    └───tests
+        │        │   ...
+        └─...
 ```
 
 **[Back to top](#table-of-contents)**

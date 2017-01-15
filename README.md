@@ -277,16 +277,16 @@ portal
 import {UserManagementService} from "../../services/user-management.client.service";
 const template = require('!!ngtemplate?module=userManagement&relativeTo=frontEnd/!html!./advertiser-info.client.comp.html');
 
-export class advertiserInfoComponent implements ng.IComponentOptions {
+export class AdvertiserInfoComponent implements ng.IComponentOptions {
     public templateUrl: string = template;
-    public controller: any = advInfoController;
+    public controller: any = AdvInfoController;
     public bindings: any = {
         managers: '<',
         selectedUser: '<'
     };
 }
 
-class advInfoController implements ng.IController {
+class AdvInfoController implements ng.IController {
     private managers: Array<any>; / will be: private managers: Array<User>;
     private selectedUser: any; // will be: private selectedUser: User;
 
@@ -305,7 +305,7 @@ class advInfoController implements ng.IController {
 
 angular
     .module("userManagement")
-    .component("advertiserInfo", new advertiserInfoComponent());
+    .component("advertiserInfo", new AdvertiserInfoComponent());
   ```
 
 **[Back to top](#table-of-contents)**

@@ -635,13 +635,13 @@ angular
 
   ```javascript
 export class UserManagementService {
-    private selectedUser;
+    private selectedUser: User;
 
-    constructor(private $http) {
+    constructor(private $http: ng.IHttpService) {
         "ngInject";
     }
 
-    public getSelectedUser() {
+    public getSelectedUser(): User {
         return this.selectedUser;
     }
 }

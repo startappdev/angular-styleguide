@@ -9,7 +9,7 @@ Special thanks to Igor Minar, lead on the Angular team, for reviewing, contribut
   1. [Single Responsibility](#single-responsibility)
   1. [Modules](#modules)
   1. [Components - TypeScript](#components)
-  1. [Services](#services)
+  1. [Services - TypeScript](#services)
   1. [Factories](#factories)
   1. [Data Services](#data-services)
   1. [Directives](#directives)
@@ -280,8 +280,12 @@ portal
 ### Example with TypeScript
 
   ```javascript
+import * as angular from 'angular';
 import {UserManagementService} from "../../services/user-management.client.service";
-const template = require('!!ngtemplate?module=userManagement&relativeTo=frontEnd/!html!./advertiser-info.client.comp.html');
+
+const template = require('!!html!./advertiser-info.client.comp.html');
+
+require('./advertiser-info.less');
 
 export class AdvertiserInfoComponent implements ng.IComponentOptions {
     public templateUrl: string = template;
@@ -296,7 +300,7 @@ class AdvInfoController implements ng.IController {
     private managers: Array<any>; / will be: private managers: Array<User>;
     private selectedUser: any; // will be: private selectedUser: User;
 
-    constructor(private userManagementService: UserManagementService) {
+    constructor(private userManagementService: UserManagementService, private toaster: angular.toastr.IToastrService,) {
         "ngInject";
     }
 
@@ -304,8 +308,19 @@ class AdvInfoController implements ng.IController {
         //init code here
     };
 
-    saveAdvertiser() {
-        this.userManagementService.saveUser(this.selectedUser);
+    saveAdvertiser(): void {
+        this.userManagementService.saveUser(this.selectedUser)
+                    .then(user => {
+                        this.selectedUser = user;
+                        this.toaster.success(`User ${this.selectedUser.userId} saved Successfully`);
+                    })
+                    .catch(err => {
+                        if (err.data && err.data.message) {
+                            this.toaster.error(err.data.message);
+                        } else {
+                            this.toaster.error('Error while updating user');
+                        }
+                    });
     }
 }
 

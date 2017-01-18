@@ -288,7 +288,7 @@ const template = require('!!html!./advertiser-info.client.comp.html');
 require('./advertiser-info.less');
 
 export class AdvertiserInfoComponent implements ng.IComponentOptions {
-    public templateUrl: string = template;
+    public template: string = template;
     public controller: any = AdvInfoController;
     public bindings: any = {
         managers: '<',
